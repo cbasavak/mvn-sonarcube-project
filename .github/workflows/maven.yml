@@ -36,3 +36,10 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
         run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
+       env:
+          DATREE_TOKEN: ${{ secrets.DATREE_TOKEN }} 
+      - name: Install Datree
+        run: curl https://get.datree.io | /bin/bash
+        
+      - name: Run Datree's policy check
+        run: datree test kube.yaml
